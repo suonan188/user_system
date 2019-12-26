@@ -1,0 +1,14 @@
+# mysql todo
+
+DB_TYPE: 'mysql'
+DB_USER: 'root'
+DB_PASSWORD: '123456'
+DB_HOST: '127.0.0.1:3306'
+DB_NAME: 'clients'
+
+#redis
+RedisMaxIdle: 30
+RedisMaxActive: 30
+RedisIdleTimeout: 200
+RedisHost: '127.0.0.1:6379'
+RedisPassword: ''
