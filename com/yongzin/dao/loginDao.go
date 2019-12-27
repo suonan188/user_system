@@ -21,7 +21,7 @@ func UserIsRight(password, pwd string) bool {
 //AddStruct :添加用户
 func AddStruct(users User) {
 	fmt.Println(users)
-	u1, _ := uuid.NewV4()
+	u1 := uuid.NewV4()
 	s := strings.Replace(u1.String(), "-", "", -1)
 	users.ID = s
 	f := GetUserDb().Save(users).Error

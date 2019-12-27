@@ -22,17 +22,11 @@ func Login(c *gin.Context) {
 
 	if session.Get("hello") != "world" {
 		session.Set("hello", "world")
-		//gos, _ := goredis.Get("gsessionid")
-		// if session.Get("gsessionid") == "" {
-		// 	goredis.Set("gsessionid", state, 60)
-		// }
-		//redis.NewStore(10, "tcp", "localhost:6379", "", []byte("secret"))
-		//sessions.Sessions("gsessionid", store)
-		session.Set("gsessionid", state)
+
 		session.Save()
 
 	}
-	session.Delete("gsessionid")
+	//session.Delete("gsessionid")
 	//session.Clear()
 	c.JSON(200, gin.H{"hello": session.Get("hello"), "state": state})
 

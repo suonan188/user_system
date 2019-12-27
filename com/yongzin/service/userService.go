@@ -15,6 +15,7 @@ func Login(name, passwd string) map[string]interface{} {
 		if passwd == user.Passwd {
 			dao.State["state"] = 1
 			dao.State["text"] = "登录成功！"
+
 		} else {
 			dao.State["state"] = 0
 			dao.State["text"] = "密码错误！"

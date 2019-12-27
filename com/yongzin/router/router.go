@@ -13,7 +13,9 @@ func InitRouter() *gin.Engine {
 
 	r := gin.Default()
 	store := cookie.NewStore([]byte("secret"))
+	//store := sessions.NewCookieStore([]byte("something-very-secret"))
 	r.Use(sessions.Sessions("gsessionid", store))
+
 	apiv1 := r.Group("/api/v1")
 	{
 		apiv1.POST("/login", v1.Login)

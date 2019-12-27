@@ -1,11 +1,9 @@
-package redis
+package tes
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"time"
-	"user_system/config"
 
 	"github.com/garyburd/redigo/redis"
 )
@@ -18,9 +16,9 @@ func InitRedis() {
 	//建立数据库连接池
 	fmt.Println("--建立数据库连接池--")
 	RedisClient = &redis.Pool{
-		MaxIdle:     config.Config.RedisMaxIdle,     //最初的连接数量
-		MaxActive:   config.Config.RedisMaxActive,   //连接池最大连接数量,不确定可以用0（0表示自动定义），按需分配
-		IdleTimeout: config.Config.RedisIdleTimeout, //连接关闭时间 300秒 （300秒不使用自动关闭）
+		MaxIdle:     30,  //最初的连接数量
+		MaxActive:   30,  //连接池最大连接数量,不确定可以用0（0表示自动定义），按需分配
+		IdleTimeout: 300, //连接关闭时间 300秒 （300秒不使用自动关闭）
 
 		TestOnBorrow: func(c redis.Conn, t time.Time) error {
 			_, err := c.Do("PING")
@@ -28,15 +26,9 @@ func InitRedis() {
 		},
 		Dial: func() (redis.Conn, error) { //要连接的redis数据库
 
-			conn, err := redis.Dial("tcp", config.Config.RedisHost)
+			conn, err := redis.Dial("tcp", "127.0.0.1:6379")
 			if err != nil {
 				return nil, err
-			}
-			if config.Config.RedisPassword != "" {
-				if _, err := conn.Do("AUTH", config.Config.RedisPassword); err != nil {
-					conn.Close()
-					return nil, err
-				}
 			}
 			return conn, err
 		},
@@ -90,39 +82,12 @@ func SetKeyExpire(k string, ex int) {
 	}
 }
 
-//CheckKey :
-func CheckKey(k string) bool {
-	c := RedisClient.Get()
-	defer c.Close()
-	exist, err := redis.Bool(c.Do("EXISTS", k))
-	if err != nil {
-		fmt.Println(err)
-		return false
-	}
-	return exist
+//Redisgo :
+func Redisgo() {
+	InitRedis()
+	Set("gsessionid", 123, 60)
+	str := GetStringValue("gsessionid")
 
-}
+	fmt.Println(str)
 
-//DelKey :
-func DelKey(k string) error {
-	c := RedisClient.Get()
-	defer c.Close()
-	_, err := c.Do("DEL", k)
-	if err != nil {
-		fmt.Println(err)
-		return err
-	}
-	return nil
-}
-
-//SetJSON 	:
-func SetJSON(k string, data interface{}) error {
-	c := RedisClient.Get()
-	defer c.Close()
-	value, _ := json.Marshal(data)
-	n, _ := c.Do("SETNX", k, value)
-	if n != int64(1) {
-		return errors.New("set failed")
-	}
-	return nil
 }
