@@ -2,10 +2,10 @@ package main
 
 import (
 	"os"
-	dao "user_system/com/yongzin/dao"
-	"user_system/com/yongzin/dao/redis"
-	"user_system/com/yongzin/router"
+	dao "user_system/app/dao"
+	"user_system/app/dao/redis"
 	"user_system/config"
+	"user_system/app/router"
 )
 
 func main() {
