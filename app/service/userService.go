@@ -38,7 +38,7 @@ func Register(name, passwd string) map[string]interface{} {
 	BoolPwd, _ := regexp.MatchString(pwdReg, passwd)
 	Boolname, _ := regexp.MatchString(nameRwd, name)
 	if !Boolname {
-		//密码验证
+		//用户名验证
 		dao.State["state"] = 1
 		dao.State["text"] = "用户名4到16位"
 		return dao.State

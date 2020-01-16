@@ -7,7 +7,7 @@ import (
 	"time"
 	"user_system/config"
 
-	"github.com/garyburd/redigo/redis"
+	"github.com/gomodule/redigo/redis"
 )
 
 //RedisClient :
