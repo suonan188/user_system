@@ -20,6 +20,7 @@ func InitRouter() *gin.Engine {
 	{
 		apiv1.POST("/login", v1.Login)
 		apiv1.POST("/register", v1.Register)
+		apiv1.GET("/verify", v1.Verify)
 	}
 
 	return r
