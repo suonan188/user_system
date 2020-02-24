@@ -83,3 +83,10 @@ func Verify(c *gin.Context) {
 	}
 	c.String(http.StatusOK, claim.Username)
 }
+
+//Index :主页
+func Index(c *gin.Context) {
+	c.HTML(http.StatusOK, "layout.html", gin.H{
+		"title": "布局页面",
+	})
+}
