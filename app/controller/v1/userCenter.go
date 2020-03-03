@@ -2,12 +2,13 @@ package v1
 
 import (
 	"fmt"
-	"github.com/gin-contrib/sessions"
-	"github.com/gin-gonic/gin"
 	"net/http"
 	"time"
 	comm "user_system/app/common"
 	"user_system/app/service"
+
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-gonic/gin"
 )
 
 var (
@@ -16,6 +17,11 @@ var (
 	//ExpireTime :
 	ExpireTime = 3600 // token有效期
 )
+
+//GoLogin :
+func GoLogin(c *gin.Context) {
+	c.HTML(http.StatusOK, "login.gtpl", gin.H{})
+}
 
 //Login :登录
 func Login(c *gin.Context) {
@@ -86,7 +92,6 @@ func Verify(c *gin.Context) {
 
 //Index :主页
 func Index(c *gin.Context) {
-	c.HTML(http.StatusOK, "layout.html", gin.H{
-		"title": "布局页面",
-	})
+
+	c.HTML(http.StatusOK, "layout.html", gin.H{})
 }

@@ -12,6 +12,7 @@ import (
 func InitRouter() *gin.Engine {
 
 	r := gin.Default()
+	r.LoadHTMLGlob("public/*")
 	store := cookie.NewStore([]byte("secret"))
 	//store := sessions.NewCookieStore([]byte("something-very-secret"))
 	r.Use(sessions.Sessions("gsessionid", store))
@@ -22,6 +23,7 @@ func InitRouter() *gin.Engine {
 		apiv1.POST("/register", v1.Register)
 		apiv1.GET("/verify", v1.Verify)
 		apiv1.GET("/indexpage", v1.Index)
+		apiv1.GET("/gologin", v1.GoLogin)
 	}
 
 	return r
