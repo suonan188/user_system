@@ -12,7 +12,7 @@ func IsExist(name string) bool {
 		return false
 	}
 
-	//遍历切片
+	//遍历切片,dao.Slice;
 	for _, v := range dao.Slice {
 		return v.Name == name //此时只能和第一个比较，所以第一个之后全为false
 		// if v.Name == user {
